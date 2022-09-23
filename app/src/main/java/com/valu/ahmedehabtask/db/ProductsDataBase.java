@@ -11,7 +11,5 @@ import com.valu.ahmedehabtask.model.ProductsResponse;
 
 @Database(entities = ProductsResponse.class , version = 1, exportSchema = false)
 public abstract class ProductsDataBase extends RoomDatabase {
-
     public abstract ProductsDao productsDao() ;
-
 }

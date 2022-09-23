@@ -40,9 +40,10 @@ public class ProductsView extends Fragment implements ProductsListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentProductsViewBinding.inflate(inflater, container, false);
-        // Inflate the layout for this fragment
-        init();
+        if (binding == null){
+            binding = FragmentProductsViewBinding.inflate(inflater, container, false);
+            init();
+        }
         return binding.getRoot();
     }
 
@@ -64,6 +65,7 @@ public class ProductsView extends Fragment implements ProductsListener {
         });
     }
 
+    // initialize RecyclerView and set adapter data
     private void initProductsRec(List<ProductsResponse> model) {
         shimmerAnimation(false);
         ProductsAdapter adapter = new ProductsAdapter(model, getActivity(), this::onProductClicked);
@@ -82,6 +84,7 @@ public class ProductsView extends Fragment implements ProductsListener {
         Navigation.findNavController(requireView()).navigate(R.id.action_productsView_to_productDetails, args);
     }
 
+    // start shimmer animation and control
     private void shimmerAnimation(boolean state) {
         if (state) {
             binding.sflMockContent.startShimmerAnimation();
@@ -89,6 +92,7 @@ public class ProductsView extends Fragment implements ProductsListener {
         } else binding.sflMockContent.setVisibility(View.GONE);
     }
 
+    // getting data from database if server down
     private void getProductsFromDB() {
         viewModel.getOldProducts();
         viewModel.getOldProductsList().observe(this, new Observer<List<ProductsResponse>>() {
@@ -99,6 +103,7 @@ public class ProductsView extends Fragment implements ProductsListener {
         });
     }
 
+    // get data from database and show error dialog
     @SuppressLint("FragmentLiveDataObserve")
     private void onErrorOccurred() {
         viewModel.getErrorMassage().observe(this, new Observer<String>() {

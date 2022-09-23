@@ -38,7 +38,7 @@ public class ProductsViewModel extends ViewModel {
         return errorMassage;
     }
 
-    // getting products from repository
+    // getting products from repository using RXjava to call api in background thread
     public void getProducts() {
         repository.getProducts()
                 .subscribeOn(Schedulers.io())
@@ -53,12 +53,14 @@ public class ProductsViewModel extends ViewModel {
         errorMassage.setValue(message);
     }
 
+    // insert product in room database
     public void insertProduct(List<ProductsResponse> productsResponse) {
         for (int i = 0; i < productsResponse.size(); i++) {
             repository.insertProduct(productsResponse.get(i));
         }
     }
 
+    //  getting products from repository
     public void getOldProducts() {
         oldProductsList = repository.getOldProducts();
     }

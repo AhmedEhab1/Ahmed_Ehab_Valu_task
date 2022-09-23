@@ -22,6 +22,7 @@ public class Repository {
         this.productsDao = productsDao;
     }
 
+    // getting products from api
     public Observable<List<ProductsResponse>> getProducts(){
         return apiService.getProducts();
     }
@@ -30,6 +31,7 @@ public class Repository {
         productsDao.insertProduct(productsResponse);
     }
 
+    // getting products from database
     public LiveData<List<ProductsResponse>> getOldProducts(){
        return productsDao.getProducts();
     }

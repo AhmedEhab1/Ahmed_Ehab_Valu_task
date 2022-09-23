@@ -30,6 +30,7 @@ public class ProductDetails extends Fragment {
 
     private void initView(){
         binding.back.setOnClickListener(view -> back());
+        //getting data from bundel and set view data
         setViewData((ProductsResponse) (getArguments() != null ? getArguments().getParcelable("product") : null));
     }
 
@@ -45,5 +46,4 @@ public class ProductDetails extends Fragment {
     private void back(){
         Navigation.findNavController(requireView()).popBackStack();
     }
-
 }
